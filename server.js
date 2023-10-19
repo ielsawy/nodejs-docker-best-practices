@@ -8,15 +8,16 @@ function handle(signal) {
 process.on('SIGHUP', handle)
 
 async function closeGracefully(signal) {
-    console.log(`*^!@4=> Received signal to terminate: ${signal}`)
+  console.log(`*^!@4=> Received signal to terminate: ${signal}`)
 
-    await fastify.close()
-    // await db.close() if we have a db connection in this app
-    // await other things we should cleanup nicely
-    process.exit()
+  await fastify.close()
+  // await db.close() if we have a db connection in this app
+  // await other things we should cleanup nicely
+  process.kill(process.pid, signal);
 }
-process.on('SIGINT', closeGracefully)
-process.on('SIGTERM', closeGracefully)
+process.once('SIGINT', closeGracefully)
+process.once('SIGTERM', closeGracefully)
+
 
 fastify.get('/delayed', async (request, reply) => {
   const SECONDS_DELAY = 60000
@@ -39,5 +40,6 @@ const start = async () => {
     process.exit(1)
   }
 }
+
 
 start()

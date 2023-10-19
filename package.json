@@ -10,7 +10,7 @@
       "fastify",
       "nodejs"
     ],
-    "author": "Liran Tal <liran@snyk.io>",
+    "author": "Ibrahem Elsawy <ibrahem@ielsawy.io>",
     "license": "MIT",
     "dependencies": {
       "fastify": "^2.13.0"
